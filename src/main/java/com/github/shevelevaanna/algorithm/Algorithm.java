@@ -1,18 +1,18 @@
-package com.github.shevelevaanna;
+package com.github.shevelevaanna.algorithm;
 
 public class Algorithm {
     //Здесь должен быть алгоритм :)
 
     public void fordBellman(MyGraph graph) {
         //boolean x = false;
-        Enge [] listE = new Enge[graph.numE];
+        Enge[] listE = new Enge[graph.numE];
         int ch = 0;
         for (int i = 0; i < graph.numV; i++)
-            for (int j = 0; j < graph.IncidList[i].size(); j++) {
+            for (int j = 0; j < graph.IncidList.get(i).size(); j++) {
                 listE[ch] = new Enge();
                 listE[ch].eFirst = i;
-                listE[ch].eSecond = graph.IncidList[i].get(j);
-                listE[ch].w = graph.Weight[i].get(j);
+                listE[ch].eSecond = graph.IncidList.get(i).get(j);
+                listE[ch].w = graph.Weight.get(i).get(j);
                 ch++;
             }
 

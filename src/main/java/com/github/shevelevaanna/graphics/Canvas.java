@@ -1,4 +1,6 @@
-package com.github.shevelevaanna;
+package com.github.shevelevaanna.graphics;
+
+import com.github.shevelevaanna.algorithm.MyGraph;
 
 import javax.swing.*;
 import java.awt.*;

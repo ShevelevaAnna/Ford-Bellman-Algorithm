@@ -1,4 +1,8 @@
-package com.github.shevelevaanna;
+package com.github.shevelevaanna.graphics;
+
+import com.github.shevelevaanna.InputOutput;
+import com.github.shevelevaanna.algorithm.MyGraph;
+import com.github.shevelevaanna.algorithm.Algorithm;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,7 +10,7 @@ import java.io.*;
 
 //добавить: алгоритм!
 
-public class MyGUIForm extends JFrame {
+public class MainFrame extends JFrame {
     private JLabel descLabel;
     private JLabel resLabel;
     private JTextArea graphEdit;
@@ -39,7 +43,7 @@ public class MyGUIForm extends JFrame {
     }
 
     // ключевое слово super, которое обозначает суперкласс, т.е. класс, производным от которого является текущий класс
-    public MyGUIForm() {
+    public MainFrame() {
 
         JLabel label = new JLabel();
         label.setText("Graph data: ");

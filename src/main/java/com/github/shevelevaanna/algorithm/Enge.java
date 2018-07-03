@@ -1,4 +1,4 @@
-package com.github.shevelevaanna;
+package com.github.shevelevaanna.algorithm;
 
 public class Enge {
     public int eFirst;

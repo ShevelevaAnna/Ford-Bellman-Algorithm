@@ -1,4 +1,7 @@
-package com.github.shevelevaanna;
+package com.github.shevelevaanna.graphics;
+
+import com.github.shevelevaanna.Coord;
+import com.github.shevelevaanna.algorithm.MyGraph;
 
 import javax.swing.*;
 import java.awt.*;
@@ -166,10 +169,10 @@ public class VGraph extends JPanel {
         }
 
         for (int i = 0; i < original.numV; ++i) {
-            for (int j = 0; j < original.IncidList[i].size(); ++j) {
+            for (int j = 0; j < original.IncidList.get(i).size(); ++j) {
                 this.addEdge("v" + String.valueOf(i + 1),
-                        "v" + String.valueOf(original.IncidList[i].get(j) + 1),
-                        "" + String.valueOf(original.Weight[i].get(j)));
+                        "v" + String.valueOf(original.IncidList.get(i).get(j) + 1),
+                        "" + String.valueOf(original.Weight.get(i).get(j)));
             }
         }
 

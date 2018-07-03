@@ -1,5 +1,7 @@
 package com.github.shevelevaanna;
 
+import com.github.shevelevaanna.algorithm.MyGraph;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,11 +34,9 @@ public class InputOutput {
         }
 
         //инициализация списка инцидентности графа
-        graph.IncidList = new ArrayList[graph.numV];
-        graph.Weight = new ArrayList[graph.numV];
         for (int i = 0; i < graph.numV; ++i) {
-            graph.IncidList[i] = new ArrayList<>();
-            graph.Weight[i] = new ArrayList<>();
+            graph.IncidList.put(i, new ArrayList<>());
+            graph.Weight.put(i, new ArrayList<>());
         }
         //считываем граф, заданный списком ребер
         for (int i = 0; i < graph.numE; ++i) {
@@ -46,11 +46,11 @@ public class InputOutput {
             int wt = Integer.parseInt(tokenizer.nextToken());
             v--;
             w--;
-            graph.IncidList[v].add(w);
-            for (int j = 0; j < graph.IncidList[w].size(); j++) {//Убираем двунаправленные ребра
-                if (graph.IncidList[w].get(j) == v) return graph;
+            graph.IncidList.get(v).add(w);
+            for (int j = 0; j < graph.IncidList.get(w).size(); j++) {//Убираем двунаправленные ребра
+                if (graph.IncidList.get(w).get(j) == v) return graph;
             }
-            graph.Weight[v].add(wt);
+            graph.Weight.get(v).add(wt);
         }
         return graph;
     }
