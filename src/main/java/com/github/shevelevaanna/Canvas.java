@@ -4,13 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Canvas extends JPanel {
-    private VGraph content;
+    private VGraph content = null;
     private static final Color[] compColor = {Color.white, Color.blue, Color.green, Color.yellow, Color.magenta,
             Color.cyan, Color.gray, Color.pink, Color.darkGray, Color.red};
 
     //конструктор
     public Canvas() {
-        content = null;
         this.setLayout(null);
     }
 

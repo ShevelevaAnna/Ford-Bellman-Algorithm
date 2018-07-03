@@ -15,7 +15,7 @@ public class MyGUIForm extends JFrame {
     private JButton buttonStep;
     private JButton buttonRun;
 
-    private com.github.shevelevaanna.Canvas canvas;
+    private Canvas canvas;
 
     private InputOutput io;
     private Algorithm solution;
@@ -23,8 +23,7 @@ public class MyGUIForm extends JFrame {
 
     private JPanel rootPanel;
 
-    // ключевое слово super, которое обозначает суперкласс, т.е. класс, производным от которого является текущий класс
-    public MyGUIForm() {
+    {
         //setBounds(x, y, w, h) - указывает координаты верхней левой вершины окна, а также его ширину и высоту.
         //завершающие настройки
         this.setSize(650, 400);
@@ -37,6 +36,10 @@ public class MyGUIForm extends JFrame {
 
         this.setBounds(100, 100, 450, 400);
         setContentPane(rootPanel);
+    }
+
+    // ключевое слово super, которое обозначает суперкласс, т.е. класс, производным от которого является текущий класс
+    public MyGUIForm() {
 
         JLabel label = new JLabel();
         label.setText("Graph data: ");
@@ -74,12 +77,15 @@ public class MyGUIForm extends JFrame {
         //this.graphEdit.setText("8 9\n\n1 2 -1\n2 3 2\n2 4 3\n3 4 -1\n4 5 -6\n4 6 7\n6 7 7\n7 8 -8\n8 6 9");//Ошибка Не указана 1 вершина
         //this.graphEdit.setText("8 10\n1\n1 2 -1\n2 3 2\n2 4 3\n3 4 -1\n4 5 -6\n4 6 7\n6 7 7\n7 8 -8\n8 6 9");//Ошибка Заказано 10 ребер, введено 9
         //this.graphEdit.setText("7 9\n1\n1 2 -1\n2 3 2\n2 4 3\n3 4 -1\n4 5 -6\n4 6 7\n6 7 7\n7 8 -8\n8 6 9");//Ошибка Всего 7 вершин, но введена 8-я
-        JScrollPane scroll = new JScrollPane(graphEdit);
-        scroll.setBounds(12, 32, 128, 244);
-        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane scroll = new JScrollPane(graphEdit) {
+            {
+                setBounds(12, 32, 128, 244);
+                setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+                setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+            }
+        };
 
-        this.canvas = new com.github.shevelevaanna.Canvas();
+        this.canvas = new Canvas();
         this.canvas.setBounds(176, 12, 428, 300);
         this.canvas.setVisible(true);
 
@@ -93,21 +99,21 @@ public class MyGUIForm extends JFrame {
         this.descLabel.setVisible(true);
         this.resLabel.setVisible(true);
         scroll.setVisible(true);
-
-        //добавляем объекты на панель
-        this.rootPanel.add(this.buttonLoad);
-        this.rootPanel.add(this.buttonInit);
-        this.rootPanel.add(this.buttonStep);
-        this.rootPanel.add(this.buttonRun);
-        this.rootPanel.add(label);
-        this.rootPanel.add(scroll);
-        this.rootPanel.add(this.descLabel);
-        this.rootPanel.add(this.resLabel);
-
         buttonRun.setEnabled(false);
         buttonStep.setEnabled(false);
 
-        rootPanel.setVisible(true);
+        {
+            //добавляем объекты на панель
+            this.rootPanel.add(this.buttonLoad);
+            this.rootPanel.add(this.buttonInit);
+            this.rootPanel.add(this.buttonStep);
+            this.rootPanel.add(this.buttonRun);
+            this.rootPanel.add(label);
+            this.rootPanel.add(scroll);
+            this.rootPanel.add(this.descLabel);
+            this.rootPanel.add(this.resLabel);
+            rootPanel.setVisible(true);
+        }
 
         io = new InputOutput();
 

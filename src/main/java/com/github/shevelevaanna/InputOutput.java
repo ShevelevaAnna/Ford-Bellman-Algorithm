@@ -13,46 +13,46 @@ public class InputOutput {
      * ввод данных с читателя cin
      * передаем ссылку на граф, в который надо считать данные,
      */
-    public MyGraph getData(MyGraph Graph, BufferedReader cin) throws IOException {
+    public MyGraph getData(MyGraph graph, BufferedReader cin) throws IOException {
         cout = new PrintWriter(System.out);
-        Graph = new MyGraph();
+        graph = new MyGraph();
 
         StringTokenizer tokenizer = new StringTokenizer(cin.readLine());
-        Graph.numV = Integer.parseInt(tokenizer.nextToken()); //считываем количество вершин графа
-        Graph.numE = Integer.parseInt(tokenizer.nextToken()); //считываем количество ребер графа
+        graph.numV = Integer.parseInt(tokenizer.nextToken()); //считываем количество вершин графа
+        graph.numE = Integer.parseInt(tokenizer.nextToken()); //считываем количество ребер графа
 
         tokenizer = new StringTokenizer(cin.readLine());
-        Graph.startV = Integer.parseInt(tokenizer.nextToken()); //считываем начальную вершину
-        // Graph.finishV = Integer.parseInt(tokenizer.nextToken()); //считываем конечную вершину
+        graph.startV = Integer.parseInt(tokenizer.nextToken()); //считываем начальную вершину
+        // graph.finishV = Integer.parseInt(tokenizer.nextToken()); //считываем конечную вершину
 
-        Graph.newWeight = new int[Graph.numV];
-        for (int i = 0; i < Graph.numV; ++i) {
-            if (i + 1 == Graph.startV) Graph.newWeight[i] = 0;
-            else Graph.newWeight[i] = 2000000000;
+        graph.newWeight = new int[graph.numV];
+        for (int i = 0; i < graph.numV; ++i) {
+            if (i + 1 == graph.startV) graph.newWeight[i] = 0;
+            else graph.newWeight[i] = 2000000000;
         }
 
         //инициализация списка инцидентности графа
-        Graph.IncidList = new ArrayList[Graph.numV];
-        Graph.Weight = new ArrayList[Graph.numV];
-        for (int i = 0; i < Graph.numV; ++i) {
-            Graph.IncidList[i] = new ArrayList<Integer>();
-            Graph.Weight[i] = new ArrayList<Integer>();
+        graph.IncidList = new ArrayList[graph.numV];
+        graph.Weight = new ArrayList[graph.numV];
+        for (int i = 0; i < graph.numV; ++i) {
+            graph.IncidList[i] = new ArrayList<>();
+            graph.Weight[i] = new ArrayList<>();
         }
         //считываем граф, заданный списком ребер
-        for (int i = 0; i < Graph.numE; ++i) {
+        for (int i = 0; i < graph.numE; ++i) {
             tokenizer = new StringTokenizer(cin.readLine());
             int v = Integer.parseInt(tokenizer.nextToken());
             int w = Integer.parseInt(tokenizer.nextToken());
             int wt = Integer.parseInt(tokenizer.nextToken());
             v--;
             w--;
-            Graph.IncidList[v].add(w);
-            for (int j = 0; j < Graph.IncidList[w].size(); j++) {//Убираем двунаправленные ребра
-                if (Graph.IncidList[w].get(j) == v) return Graph;
+            graph.IncidList[v].add(w);
+            for (int j = 0; j < graph.IncidList[w].size(); j++) {//Убираем двунаправленные ребра
+                if (graph.IncidList[w].get(j) == v) return graph;
             }
-            Graph.Weight[v].add(wt);
+            graph.Weight[v].add(wt);
         }
-        return Graph;
+        return graph;
     }
 
     //вывод результата!!!!   передаем в метод кратчайший путь - данные, которые надо вывести

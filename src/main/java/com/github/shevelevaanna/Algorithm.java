@@ -5,7 +5,7 @@ public class Algorithm {
 
     public void fordBellman(MyGraph graph) {
         //boolean x = false;
-        Enge listE[] = new Enge[graph.numE];
+        Enge [] listE = new Enge[graph.numE];
         int ch = 0;
         for (int i = 0; i < graph.numV; i++)
             for (int j = 0; j < graph.IncidList[i].size(); j++) {
