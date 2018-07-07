@@ -10,17 +10,18 @@ public class InputOutput {
     private PrintWriter cout;
 
     //ввод данных с читателя cin
-    public MyGraph getData(MyGraph Graph, BufferedReader cin) throws IOException {//передаем ссылку на граф, в который надо считать данные,
+    public MyGraph getData(MyGraph Graph, BufferedReader cin, BufferedReader cinV,
+                           BufferedReader cinE, BufferedReader cinFV) throws IOException {//передаем ссылку на граф, в который надо считать данные,
         cout = new PrintWriter(System.out);
         Graph = new MyGraph();
 
-        StringTokenizer tokenizer = new StringTokenizer(cin.readLine());
+        StringTokenizer tokenizer = new StringTokenizer(cinV.readLine());
         Graph.numV = Integer.parseInt(tokenizer.nextToken()); //считываем количество вершин графа
+        tokenizer = new StringTokenizer(cinE.readLine());
         Graph.numE = Integer.parseInt(tokenizer.nextToken()); //считываем количество ребер графа
 
-        tokenizer = new StringTokenizer(cin.readLine());
+        tokenizer = new StringTokenizer(cinFV.readLine());
         Graph.startV = Integer.parseInt(tokenizer.nextToken()); //считываем начальную вершину
-       // Graph.finishV = Integer.parseInt(tokenizer.nextToken()); //считываем конечную вершину
 
         Graph.newWeight = new int[Graph.numV];
         for (int i = 0; i < Graph.numV; ++i) {
@@ -53,4 +54,12 @@ public class InputOutput {
     }
 
     //вывод результата!!!!   передаем в метод кратчайший путь - данные, которые надо вывести
+
+    public String printData(MyGraph Graph) throws IOException {
+        String res = new String();
+        for (int i = 0; i < Graph.numV; ++i) {
+            res += "["+(i+1)+"] - "+Graph.newWeight[i]+"; ";
+        }
+        return res;
+    }
 }

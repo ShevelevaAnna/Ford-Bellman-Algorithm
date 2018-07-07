@@ -15,6 +15,7 @@ public class VGraph extends JPanel {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
         for (HashMap<String,Object> e: edges) {
+            //g2d.setColor(Color.cyan);
             g2d.draw((Line2D) e.get("component"));//рисует линии
             Coord c1 = (Coord) e.get("posFrom");
             Coord c2 = (Coord) e.get("posTo");
@@ -39,14 +40,18 @@ public class VGraph extends JPanel {
             g2d.drawLine(c3.x , c3.y , (int) fx1, (int) fy1);//рисуют стрелки
             g2d.drawLine(c3.x, c3.y, (int) fx2, (int) fy2);
 
-            if (c3.x >= 214) {
-                if (c3.y <= 150) g2d.drawString((String) e.get("name"), c3.x + 5, c3.y - 5);
+            Font currentFont = g.getFont();
+            Font newFont = currentFont.deriveFont(currentFont.getSize() * 1.4F);
+            g.setFont(newFont);
+            if (c3.x >= 375) {
+                if (c3.y <= 275) g2d.drawString((String) e.get("name"), c3.x + 10, c3.y - 10);
                 else g2d.drawString((String) e.get("name"), c3.x + 15, c3.y + 10);
             }
             else {
-                if (c3.y <= 150) g2d.drawString((String) e.get("name"), c3.x - 5, c3.y - 5);
-                else g2d.drawString((String) e.get("name"), c3.x - 15, c3.y + 15);
+                if (c3.y <= 275) g2d.drawString((String) e.get("name"), c3.x - 30, c3.y - 5);
+                else g2d.drawString((String) e.get("name"), c3.x - 30, c3.y + 15);
             }
+            g.setFont(currentFont);
         }
 
             //Работа с цветом линии/фигуры
@@ -60,27 +65,31 @@ public class VGraph extends JPanel {
             Color newColor = (Color) vertice.get("color");
             // Устанавливаем новый цвет;
             g.setColor(newColor);//цвет для
-            g.fillOval(vertC.x - 19, vertC.y - 10, 30, 30);//покраска
+            g.fillOval(vertC.x - 19, vertC.y - 10, 40, 40);//покраска
 
             // Восстанавливаем исходный цвет;
             g.setColor(oldColor);//цвет для контура
-            g.drawOval(vertC.x - 19, vertC.y - 10, 30, 30);//контур
+            g.drawOval(vertC.x - 19, vertC.y - 10, 40, 40);//контур
 
-            g.drawString((String) vertice.get("name"), vertC.x - 10, vertC.y + 10);//вносим название в кружок
-            if (vertC.x >= 214) {
-                if(vertC.y <= 150) g.drawString((String) vertice.get("weight"), vertC.x + 15, vertC.y);//веса
-                else g.drawString((String) vertice.get("weight"), vertC.x + 15, vertC.y + 20);
+            Font currentFont = g.getFont();
+            Font newFont = currentFont.deriveFont(currentFont.getSize() * 1.4F);
+            g.setFont(newFont);
+            g.drawString((String) vertice.get("name"), vertC.x - 5, vertC.y + 15);//вносим название в кружок
+            if (vertC.x >= 375) {
+                if(vertC.y <= 275) g.drawString((String) vertice.get("weight"), vertC.x + 25, vertC.y);//веса
+                else g.drawString((String) vertice.get("weight"), vertC.x + 25, vertC.y + 20);
             }
             else {
-                if(vertC.y <= 150) g.drawString((String) vertice.get("weight"), vertC.x - 40, vertC.y);
-                else g.drawString((String) vertice.get("weight"), vertC.x - 40, vertC.y + 20);
+                if(vertC.y <= 275) g.drawString((String) vertice.get("weight"), vertC.x - 50, vertC.y);
+                else g.drawString((String) vertice.get("weight"), vertC.x - 50, vertC.y + 20);
             }
+            g.setFont(currentFont);
         }
     }
 
     //добавление вершины в граф
     private void addVertex(String name, String weight) {
-        HashMap<String, Object> vertex = new HashMap<>(5);
+        HashMap<String, Object> vertex = new HashMap<>(6);
         vertex.put("name", name);
         vertex.put("color",Color.white);
         vertex.put("selected",false);
@@ -92,7 +101,7 @@ public class VGraph extends JPanel {
 
     //добавление ребра в граф
     private void addEdge(String fromName, String toName, String name) {
-        HashMap<String, Object> edge = new HashMap<>(5);
+        HashMap<String, Object> edge = new HashMap<>(7);
         edge.put("from", fromName);
         edge.put("to", toName);
         edge.put("name", name);
@@ -113,11 +122,11 @@ public class VGraph extends JPanel {
     private void reposition() {
         for (int i = 0; i<vertices.size(); ++i) {
             HashMap<String,Object> cur = vertices.get(i);
-            Coord place = new Coord(214+(int)(130*Math.cos(6.28/vertices.size()*i)),150+(int)(130*Math.sin(6.28/vertices.size()*i)));
+            Coord place = new Coord(375+(int)(180*Math.cos(6.28/vertices.size()*i)),275+(int)(180*Math.sin(6.28/vertices.size()*i)));
             cur.replace("pos", place);
             JLabel lbl = (JLabel) cur.get("component");
             lbl.setText((String) cur.get("name"));
-            lbl.setBounds(place.x-10,place.y-10,30,30);
+            lbl.setBounds(place.x-5,place.y-15,40,40);
             lbl.setVisible(true);
             lbl.setBackground((Color) cur.get("color"));
             this.add(lbl);
@@ -140,7 +149,6 @@ public class VGraph extends JPanel {
 
             Line2D line = (Line2D) cur.get("component");
             line.setLine(fromC.x, fromC.y, toC.x, toC.y);
-            //System.out.println(fromC.x+"  "+ fromC.y+"  "+ toC.x+"  "+ toC.y);
             cur.replace("posFrom", fromC);
             cur.replace("posTo", toC);
             cur.replace("posN", posN);
@@ -153,15 +161,15 @@ public class VGraph extends JPanel {
     }
 
     VGraph(MyGraph original) {
-        this.setBounds(0,0,428, 300);
+        this.setBounds(0,0,750, 550);
         this.setLayout(null);
 
         vertices = new ArrayList<>(original.numV);
         edges = new ArrayList<>(original.numE);
         String s;
         for (int i = 1; i<=original.numV; ++i) {
-            if (original.newWeight[i-1] == 2000000000) s = new String("inf");
-            else s = new String("0");
+            if (original.newWeight[i-1] > 1900000000) s = new String("inf");
+            else s = new String(Integer.toString(original.newWeight[i-1]));
             this.addVertex("v" + String.valueOf(i),
                             "["+ s +"]");
         }

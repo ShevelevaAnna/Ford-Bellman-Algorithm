@@ -4,8 +4,6 @@ import java.awt.*;
 
 public class Canvas extends  JPanel {
     private VGraph content;
-    private static final Color[] compColor = {Color.white,  Color.blue, Color.green, Color.yellow,   Color.magenta,
-            Color.cyan,   Color.gray, Color.pink,  Color.darkGray, Color.red};
 
     //конструктор
     public Canvas() {
@@ -14,8 +12,12 @@ public class Canvas extends  JPanel {
     }
 
     public void select(MyGraph data) {
-        content.recolor(data.startV - 1, Color.pink);//изменение цвета
-        //content.recolor(data.finishV - 1, Color.orange);//изменение цвета
+        content.recolor(data.startV - 1, Color.orange);//изменение цвета
+        content.repaint();
+    }
+
+    public void visited (MyGraph data, int number) {
+        content.recolor(number, Color.pink);//изменение цвета
         content.repaint();
     }
 
@@ -29,4 +31,5 @@ public class Canvas extends  JPanel {
         this.revalidate();//обновление макета экрана
         this.repaint();//обновление графа
     }
+
 }
